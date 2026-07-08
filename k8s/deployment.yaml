@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cortiva-backend
+  namespace: cortiva
+  labels:
+    app: cortiva-backend
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: cortiva-backend
+
+  template:
+    metadata:
+      labels:
+        app: cortiva-backend
+
+    spec:
+      containers:
+        - name: cortiva-backend
+
+          image: yashwanthvenaganti/cortiva-backend:latest
+
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 5000
+
+          env:
+            - name: PORT
+              value: "5000"
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
